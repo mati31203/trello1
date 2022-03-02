@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 02 Mar 2022, 11:22
+-- Czas generowania: 02 Mar 2022, 12:22
 -- Wersja serwera: 10.4.22-MariaDB
 -- Wersja PHP: 8.1.2
 
@@ -30,10 +30,13 @@ USE `trello_trial`;
 --
 
 CREATE TABLE `tasks` (
-  `Id_t` int(10) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Picture` longblob DEFAULT NULL,
-  `Description` varchar(500) DEFAULT NULL
+  `id` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `picture` varchar(64) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `position` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -44,7 +47,7 @@ CREATE TABLE `tasks` (
 -- Indeksy dla tabeli `tasks`
 --
 ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`Id_t`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
@@ -54,7 +57,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT dla tabeli `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `Id_t` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
