@@ -1,0 +1,45 @@
+.all
+{
+    border-style: groove;
+    border-radius: 5px;
+    border-width: 5px;
+    padding: 5px;
+}
+
+.list
+{
+    width: 500px;
+    max-height: 2000px;
+    overflow-y: scroll;
+    overflow: auto;
+}
+
+.header
+{
+    width: 480px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    overflow-y: scroll;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.task
+{
+    width: 480px;
+    height: 30px;
+    overflow-y: scroll;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.addbutton
+{
+    float: right;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
