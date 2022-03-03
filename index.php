@@ -15,5 +15,7 @@
 
 </div>   
 
+<?php echo 'test'; ?>
+
 </body>
 </html>
