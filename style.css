@@ -1,0 +1,65 @@
+.all
+{
+    border: 5px ridge lightgrey;
+    border-radius: 7px;
+    padding: 3px;
+    font: 20px 'Trebuchet MS', sans-serif;
+}
+
+.list
+{
+    width: 500px;
+    max-height: 2000px;
+    overflow-y: scroll;
+    overflow: auto;
+    background-color: lightblue;
+}
+
+.header
+{
+    width: 478px;
+    margin: 3px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    background-color: lightblue;
+    border-style: none;
+    font-weight: bold;
+
+}
+
+.task
+{
+    width: 471px;
+    margin: 3px;
+    padding: 7px;
+    word-wrap: break-word;
+    background-color: white;
+}
+
+.task:hover
+{
+    background-color: lightgray;
+}
+
+#addbutton
+{
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#addbutton:hover
+{
+    background-color: lightyellow;
+}
+
+a
+{
+    text-decoration: none;
+}
