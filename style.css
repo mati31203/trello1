@@ -30,8 +30,9 @@
 
 .task
 {
-    width: 478px;
+    width: 471px;
     margin: 3px;
+    padding: 7px;
     word-wrap: break-word;
     background-color: white;
 }
@@ -55,7 +56,7 @@
 
 #addbutton:hover
 {
-    background-color: lightblue;
+    background-color: lightyellow;
 }
 
 a
