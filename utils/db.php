@@ -20,9 +20,25 @@ function getAll(): bool|array
     if (!is_null($db_conn)) {
         $stmt = $db_conn->prepare('SELECT * FROM tasks');
         $stmt->execute();
-
+        var_dump($stmt);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     return [];
+}
+
+function create($name, $description, $picture, $position)
+{
+    $db_conn = startConnection();
+    {
+        $stmt = $db_conn->prepare("INSERT INTO tasks (name, picture, description, position) VALUES(:name, :picture, :description, :position)");
+        $stmt->bindParam('name', $name);
+        $stmt->bindParam('picture', $picture);
+        $stmt->bindParam('description', $description);
+        $stmt->bindParam('position', $position);
+
+        $stmt->execute(); // on w tym momencie dodaje wpis do bazy
+
+        $db_conn = null;
+    }
 }
