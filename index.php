@@ -16,13 +16,15 @@
 
     <div class="list all">
         <div class="header all">Tasks:</div>
-    
-        <?php foreach($tasks as $task): ?>
-            <div class="task all">
-                <?=$task['name'];?>
-            </div>
-        <?php endforeach ?>
-        
+
+            <?php foreach($tasks as $task): ?>
+                <div class="all" id="editbtn"><a href="addtask1.php">Edit task</a></div>
+                <div class="task all" >
+                    <?=$task['name'];?>
+                </div>
+
+            <?php endforeach ?>
+
         <div class="all" id="addbutton"><a href="addtask1.php">Add task</a></div>
     </div>
 

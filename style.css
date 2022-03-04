@@ -4,6 +4,7 @@
     border-radius: 7px;
     padding: 3px;
     font: 20px 'Trebuchet MS', sans-serif;
+    float: left;
 }
 
 .list
@@ -29,11 +30,12 @@
 
 .task
 {
-    width: 471px;
+    width: 369px;
     margin: 3px;
     padding: 7px;
     word-wrap: break-word;
     background-color: white;
+    display: inline-block;
 }
 
 .task:hover
@@ -52,7 +54,20 @@
     justify-content: center;
     align-items: center;
 }
-
+#editbtn
+{
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#editbtn:hover {
+    background-color: lightyellow;
+}
 #addbutton:hover
 {
     background-color: lightyellow;
@@ -61,4 +76,8 @@
 a
 {
     text-decoration: none;
+}
+#editbutton:hover
+{
+    background-color: lightyellow;
 }
