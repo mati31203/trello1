@@ -23,7 +23,7 @@
             </div>
         <?php endforeach ?>
         
-        <div class="all" id="addbutton"><a href="addtask.php">Add task</a></div>
+        <div class="all" id="addbutton"><a href="addtask1.php">Add task</a></div>
     </div>
 
 </body>
