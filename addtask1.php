@@ -1,18 +1,29 @@
 <?php
 include_once "utils\db.php";
-if (!empty($_POST['add']))
-{   
-    switch ($_POST['add'])
-    {
+if (!empty($_POST['add'])):
+    switch ($_POST['add']):
         case (!empty($_POST['add'])):
             $taskname = $_POST['name'];
             $taskdesc = $_POST['description'];
             $button = $_POST['add'];
-            create($taskname, $taskdesc, '', '');
+
+            $tasks = position();
+            foreach($tasks as $position1):
+                if ($position1['MAX(position)'] === NULL)
+                {
+                    $position = 1;
+                }
+                else
+                {
+                    $position = $position1['MAX(position)'] + 1;
+                }
+            endforeach;
+
+            create($taskname, $taskdesc, '', $position);
             header("Location: index.php");
             break;
-    }
-}
+    endswitch;
+endif; 
 ?>
 
 <!DOCTYPE html>
