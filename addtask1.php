@@ -20,21 +20,17 @@ if (!empty($_POST['add']) && !empty($_POST['name'])):
             $tempname = $_FILES["picture"]["tmp_name"];    
             $fileType = pathinfo($filename,PATHINFO_EXTENSION);
             $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES["picture"]["name"]);
-            //$filename = sha1($_FILES["picture"]["name"]);
             $folder = "images/".$filename.".".$fileType;
             $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
 
-            if (in_array($fileType, $allowTypes))
-            {
+            if (in_array($fileType, $allowTypes)):
                 move_uploaded_file($tempname, $folder);
 
                 create($taskname, $taskdesc, $filename, $position);
                 header("Location: index.php");
-            }
-            else 
-            {
+            else:
                 echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
-            }
+            endif;
             break;
     endswitch;
 endif; 
