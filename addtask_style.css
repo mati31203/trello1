@@ -30,3 +30,84 @@
 {
     float: right;
 }
+.allbtns
+{
+    border: 5px ridge lightgrey;
+    border-radius: 7px;
+    padding: 2px;
+    font: 17px 'Trebuchet MS', sans-serif;
+    float: left;
+    text-decoration: none;
+}
+.allbtns
+{
+    border: 5px ridge lightgrey;
+    border-radius: 7px;
+    padding: 2px;
+    font: 17px 'Trebuchet MS', sans-serif;
+    float: left;
+    text-decoration: none!important;
+}
+#editbtn
+{
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#editbtn:hover {
+    background-color: lightyellow;
+}
+#deletebtn
+{
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#deletebtn:hover
+{
+    background-color: lightyellow;
+}
+#savebtn {
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+#savebtn:hover {
+    background-color: beige;
+}
+.noDecoration {
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+

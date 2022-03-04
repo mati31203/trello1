@@ -6,7 +6,14 @@
     font: 20px 'Trebuchet MS', sans-serif;
     float: left;
 }
-
+.allbtns
+{
+    border: 5px ridge lightgrey;
+    border-radius: 7px;
+    padding: 2px;
+    font: 17px 'Trebuchet MS', sans-serif;
+    float: left;
+}
 .list
 {
     width: 500px;
@@ -30,8 +37,8 @@
 
 .task
 {
-    width: 369px;
-    margin: 3px;
+    width: 395px;
+    margin: 2px;
     padding: 7px;
     word-wrap: break-word;
     background-color: white;
@@ -53,21 +60,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
 }
-#editbtn
-{
-    float: right;
-    vertical-align: bottom;
-    height: 30px;
-    margin: 3px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#editbtn:hover {
-    background-color: lightyellow;
-}
+
 #addbutton:hover
 {
     background-color: lightyellow;
@@ -77,7 +73,21 @@ a
 {
     text-decoration: none;
 }
-#editbutton:hover
-{
-    background-color: lightyellow;
+#details {
+    font-size: 15px;
+    float: right;
+    vertical-align: bottom;
+    height: 30px;
+    margin: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.noDecoration {
+    text-decoration: none;
 }

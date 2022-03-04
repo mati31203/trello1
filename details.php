@@ -1,20 +1,8 @@
 <?php
-include_once "utils\db.php";
-if (!empty($_POST['add']))
-{   
-    switch ($_POST['add'])
-    {
-        case (!empty($_POST['add']) && !empty($_POST['name'])):
-            $taskname = $_POST['name'];
-            $taskdesc = $_POST['description'];
-            $button = $_POST['add'];
-            create($taskname, $taskdesc, '', '');
-            header("Location: index.php");
-            break;
-    }
-}
-?>
 
+
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -30,7 +18,9 @@ if (!empty($_POST['add']))
             <div class="input" id="name">Name: <br><textarea name="name" id="textname"></textarea></div>
             <div class="input" id="picture">Picture: <br><input type="file" name="picture"></div>
             <div class="input" id="description">Description: <br><textarea name="description" id="textdesc"></textarea></div>
-            <div id="button"><input type="submit" name="add" value="Add task"></div>
+
+            <div class="allbtns" id="deletebtn"><a class="noDecoration" href="addtask1.php">Delete</a></div>
+            <div class="allbtns" id="editbtn"><a class="noDecoration" href="edittask.php">Edit</a></div>
         </form>
     </div>
 </body>
