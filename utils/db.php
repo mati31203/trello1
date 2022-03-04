@@ -42,7 +42,7 @@ function create($name, $description, $picture, $position)
     return [];
 }
 
-function position() : bool|array
+function getposition() : bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)) {
