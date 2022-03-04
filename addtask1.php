@@ -9,25 +9,22 @@ if (!empty($_POST['add']) && !empty($_POST['name'])):
 
             $positions = getposition();
             foreach($positions as $maxposition):
-                if ($maxposition['MAX(position)'] === NULL)
-                {
+                if ($maxposition['MAX(position)'] === NULL):
                     $position = 1;
-                }
-                else
-                {
+                else:
                     $position = $maxposition['MAX(position)'] + 1;
-                }
+                endif; 
             endforeach;
 
             $filename = $_FILES["picture"]["name"];
             $tempname = $_FILES["picture"]["tmp_name"];    
             $fileType = pathinfo($filename,PATHINFO_EXTENSION);
+            $filename = sha1($_FILES["picture"]["name"]);
             $folder = "images/".$filename.".".$fileType;
-            $allowTypes = array('jpg','png');
+            $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
+
             if (in_array($fileType, $allowTypes))
             {
-                $filename = sha1($_FILES["picture"]["name"]);
-
                 move_uploaded_file($tempname, $folder);
 
                 create($taskname, $taskdesc, $filename, $position);
@@ -35,7 +32,7 @@ if (!empty($_POST['add']) && !empty($_POST['name'])):
             }
             else 
             {
-                echo "Add a file with any of these extensions: 'jpg' or 'png'. <br><br>";
+                echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
             }
             break;
     endswitch;
@@ -47,7 +44,7 @@ endif;
 
 <head>
     <meta charset="UTF-8">
-    <title>Trello_trial</title>
+    <title>Trello_trial - Add Task</title>
     <link rel="stylesheet" href="addtask_style.css">
 </head>
 
