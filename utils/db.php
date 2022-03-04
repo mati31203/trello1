@@ -20,7 +20,6 @@ function getAll(): bool|array
     if (!is_null($db_conn)) {
         $stmt = $db_conn->prepare('SELECT * FROM tasks');
         $stmt->execute();
-        var_dump($stmt);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -38,7 +37,7 @@ function create($name, $description, $picture, $position)
         $stmt->bindParam('position', $position);
 
         $stmt->execute(); // on w tym momencie dodaje wpis do bazy
-
-        $db_conn = null;
     }
+
+    return [];
 }
