@@ -1,18 +1,34 @@
 <?php
 include_once "utils\db.php";
-if (!empty($_POST['add']))
-{   
-    switch ($_POST['add'])
-    {
-        case (!empty($_POST['add']) && !empty($_POST['name'])):
+if (!empty($_POST['add']) && !empty($_POST['name'])):
+    switch ($_POST['add']):
+        case (!empty($_POST['add'])):
             $taskname = $_POST['name'];
             $taskdesc = $_POST['description'];
             $button = $_POST['add'];
-            create($taskname, $taskdesc, '', '');
-            header("Location: index.php");
+
+            $positions = getposition();
+            foreach($positions as $maxposition):
+                if ($maxposition['MAX(position)'] === NULL)
+                {
+                    $position = 1;
+                }
+                else
+                {
+                    $position = $maxposition['MAX(position)'] + 1;
+                }
+            endforeach;
+
+            $filename = sha1($_FILES["picture"]["name"]);
+            $tempname = $_FILES["picture"]["tmp_name"];    
+            $folder = "images/".$filename;
+            move_uploaded_file($tempname, $folder);
+
+            create($taskname, $taskdesc, $filename, $position);
+            //header("Location: index.php");
             break;
-    }
-}
+    endswitch;
+endif; 
 ?>
 
 <!DOCTYPE html>

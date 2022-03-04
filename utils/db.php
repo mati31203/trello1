@@ -41,3 +41,15 @@ function create($name, $description, $picture, $position)
 
     return [];
 }
+
+function getposition() : bool|array
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)) {
+        $stmt = $db_conn->prepare('SELECT MAX(position) FROM `tasks`');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    return [];
+}
