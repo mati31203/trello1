@@ -19,13 +19,24 @@ if (!empty($_POST['add']) && !empty($_POST['name'])):
                 }
             endforeach;
 
-            $filename = sha1($_FILES["picture"]["name"]);
+            $filename = $_FILES["picture"]["name"];
             $tempname = $_FILES["picture"]["tmp_name"];    
-            $folder = "images/".$filename;
-            move_uploaded_file($tempname, $folder);
+            $fileType = pathinfo($filename,PATHINFO_EXTENSION);
+            $folder = "images/".$filename.".".$fileType;
+            $allowTypes = array('jpg','png');
+            if (in_array($fileType, $allowTypes))
+            {
+                $filename = sha1($_FILES["picture"]["name"]);
 
-            create($taskname, $taskdesc, $filename, $position);
-            //header("Location: index.php");
+                move_uploaded_file($tempname, $folder);
+
+                create($taskname, $taskdesc, $filename, $position);
+                header("Location: index.php");
+            }
+            else 
+            {
+                echo "Add a file with any of these extensions: 'jpg' or 'png'. <br><br>";
+            }
             break;
     endswitch;
 endif; 
