@@ -1,13 +1,15 @@
 <?php
 include_once "utils\db.php";
 if (!empty($_POST['add']))
-{   switch ($_POST['add'])
+{   
+    switch ($_POST['add'])
     {
-        case ($_POST['add']):
+        case (!empty($_POST['add'])):
             $taskname = $_POST['name'];
             $taskdesc = $_POST['description'];
             $button = $_POST['add'];
-            if (!empty($_POST['add'])) create($taskname, $taskdesc, '', '');
+            create($taskname, $taskdesc, '', '');
+            header("Location: index.php");
             break;
     }
 }
