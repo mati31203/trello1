@@ -50,12 +50,13 @@ endif;
 </head>
 
 <body>
-    <div id="form">
+    <div class="all form">
         <form action="" method="POST" enctype="multipart/form-data">
-            <div class="input">Name: <br><textarea name="name"></textarea></div>
-            <div class="input">Picture: <br><input type="file" name="picture"></div>
-            <div class="input">Description: <br><textarea name="description"></textarea></div>
-            <div id="addbutton"><input type="submit" name="add" value="Add task"></div>
+            <div class="all input">Name: <br><textarea name="name"></textarea></div>
+            <div class="all input">Picture: <br><input type="file" name="picture"></div>
+            <div class="all input">Description: <br><textarea name="description"></textarea></div>
+            <input type="submit" name="add" value="Add task">
+            <div class="allbuttons"><a href="index.php">Back</a></div>
         </form>
     </div>
 </body>

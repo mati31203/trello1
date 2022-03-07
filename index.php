@@ -14,16 +14,16 @@
 
 <body>
 
-    <div class="list all">
-        <div class="header all">Tasks:</div>
+    <div class="all list">
+        <div class="all header">Tasks:</div>
 
-            <?php foreach($tasks as $task): ?>
+        <?php foreach($tasks as $task): ?>
+            <div class="all cell">
+                <div class="all task"><?=$task['name'];?></div>
                 <div class="all" id="detailsbutton"><a href="details.php?id=<?php echo $task['id']; ?>">Details</a></div>
-                <div class="task all" >
-                    <?=$task['name'];?>
+            </div>
+        <?php endforeach ?>
 
-                </div>
-            <?php endforeach ?>
 
         <div class="all" id="addbutton"><a href="addtask1.php">Add task</a></div>
     </div>
