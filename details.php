@@ -1,27 +1,67 @@
 <?php
+include_once "utils\db.php";
 
+function getdetails(): bool|array
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)):
+        $id = $_GET['id'];
+        $stmt = $db_conn->prepare("SELECT * FROM tasks WHERE id='".$id."'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    endif;
+    return [];
+}
 
-
+$details = getdetails();
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
     <meta charset="UTF-8">
-    <title>Trello_trial</title>
+    <title>Trello_trial - Details</title>
     <link rel="stylesheet" href="addtask_style.css">
 </head>
 
 <body>
-    <div id="form">
-        <form action="" method="POST" enctype="multipart/form-data">
-            <div class="input" id="name">Name: <br><textarea name="name" id="textname"></textarea></div>
-            <div class="input" id="picture">Picture: <br><input type="file" name="picture"></div>
-            <div class="input" id="description">Description: <br><textarea name="description" id="textdesc"></textarea></div>
+<div id="form">
+    <div id="pic">
+        <?php foreach($details as $task):
+        $path = "images/".$task['picture'];
+        echo "<img src='".$path."'>";
 
-            <div class="allbtns" id="deletebtn"><a class="noDecoration" href="addtask1.php">Delete</a></div>
-            <div class="allbtns" id="editbtn"><a class="noDecoration" href="edittask.php">Edit</a></div>
-        </form>
+        endforeach; ?>
+
     </div>
+
+    <div id="name">
+        <br>Name:<br>
+        <?php
+        foreach($details as $task): 
+            echo $task['name'];
+        endforeach;
+        ?>
+
+    </div>
+
+
+    <div id="desc">
+        <br>Description:<br>
+        <?php
+        foreach($details as $task): 
+            echo $task['description'];
+        endforeach;
+        ?>
+
+    </div>
+
+
+
+    <div class="allbtns"><a href="addtask1.php">Delete</a></div>
+    <div class="allbtns"><a href="edittask.php">Edit</a></div>
+</div>
+
 </body>
 </html>

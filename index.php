@@ -18,14 +18,14 @@
         <div class="header all">Tasks:</div>
 
             <?php foreach($tasks as $task): ?>
-                <div class="allbtns" id="details"><a href="details.php">Details</a></div>
+                <div class="all" id="detailsbutton"><a href="details.php?id=<?php echo $task['id']; ?>">Details</a></div>
                 <div class="task all" >
                     <?=$task['name'];?>
 
                 </div>
             <?php endforeach ?>
 
-        <div class="allbtns" id="addbutton"><a href="addtask1.php">Add task</a></div>
+        <div class="all" id="addbutton"><a href="addtask1.php">Add task</a></div>
     </div>
 
 </body>

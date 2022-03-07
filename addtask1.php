@@ -1,38 +1,42 @@
 <?php
 include_once "utils\db.php";
-if (!empty($_POST['add']) && !empty($_POST['name'])):
-    switch ($_POST['add']):
-        case (!empty($_POST['add'])):
-            $taskname = $_POST['name'];
-            $taskdesc = $_POST['description'];
-            $button = $_POST['add'];
+if (!empty($_POST['add'])):
+    if (!empty($_POST['name'])):
+        switch ($_POST['add']):
+            case (!empty($_POST['add'])):
+                $taskname = $_POST['name'];
+                $taskdesc = $_POST['description'];
+                $button = $_POST['add'];
 
-            $positions = getposition();
-            foreach($positions as $maxposition):
-                if ($maxposition['MAX(position)'] === NULL):
-                    $position = 1;
+                $positions = getposition();
+                foreach($positions as $maxposition):
+                    if ($maxposition['MAX(position)'] === NULL):
+                        $position = 1;
+                    else:
+                        $position = $maxposition['MAX(position)'] + 1;
+                    endif; 
+                endforeach;
+
+                $filename = $_FILES["picture"]["name"];
+                $tempname = $_FILES["picture"]["tmp_name"];    
+                $fileType = pathinfo($filename,PATHINFO_EXTENSION);
+                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES["picture"]["name"]).".".$fileType;
+                $folder = "images/".$filename;
+                $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
+
+                if (in_array($fileType, $allowTypes)):
+                    move_uploaded_file($tempname, $folder);
+
+                    create($taskname, $taskdesc, $filename, $position);
+                    header("Location: index.php");
                 else:
-                    $position = $maxposition['MAX(position)'] + 1;
-                endif; 
-            endforeach;
-
-            $filename = $_FILES["picture"]["name"];
-            $tempname = $_FILES["picture"]["tmp_name"];    
-            $fileType = pathinfo($filename,PATHINFO_EXTENSION);
-            $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES["picture"]["name"]);
-            $folder = "images/".$filename.".".$fileType;
-            $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
-
-            if (in_array($fileType, $allowTypes)):
-                move_uploaded_file($tempname, $folder);
-
-                create($taskname, $taskdesc, $filename, $position);
-                header("Location: index.php");
-            else:
-                echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
-            endif;
-            break;
-    endswitch;
+                    echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
+                endif;
+                break;
+        endswitch;
+    else:
+        echo "Add name of a task <br><br>";
+    endif;
 endif; 
 ?>
 
@@ -48,10 +52,10 @@ endif;
 <body>
     <div id="form">
         <form action="" method="POST" enctype="multipart/form-data">
-            <div class="input" id="name">Name: <br><textarea name="name" id="textname"></textarea></div>
-            <div class="input" id="picture">Picture: <br><input type="file" name="picture"></div>
-            <div class="input" id="description">Description: <br><textarea name="description" id="textdesc"></textarea></div>
-            <div id="button"><input type="submit" name="add" value="Add task"></div>
+            <div class="input">Name: <br><textarea name="name"></textarea></div>
+            <div class="input">Picture: <br><input type="file" name="picture"></div>
+            <div class="input">Description: <br><textarea name="description"></textarea></div>
+            <div id="addbutton"><input type="submit" name="add" value="Add task"></div>
         </form>
     </div>
 </body>
