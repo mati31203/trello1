@@ -23,16 +23,7 @@ if (!empty($_POST['edit'])):
                 $taskdesc = $_POST['description'];
                 $button = $_POST['edit'];
                 foreach($details as $task): $id=$task['id']; endforeach;
-
-                foreach($_FILES as $array): 
-                    $size = $array['size'];
-                    echo $size;
-                endforeach;
-
-                foreach($_FILES as $array): 
-                    $size = $array['size'];
-                    echo $size."<br><br>";
-                endforeach;
+                foreach($_FILES as $array): $size = $array['size']; endforeach;
 
                 if ($size == 0):
                         foreach($details as $task): $filename = $task['picture']; endforeach;
@@ -40,6 +31,8 @@ if (!empty($_POST['edit'])):
                         header("Location: details.php"."?id=".$task['id']);
                     
                 elseif ($size > 0):
+                        foreach($details as $task): $filename = $task['picture']; endforeach;
+                        unlink("images/".$filename);
                         $filename = $_FILES['picture123']['name'];
                         $tempname = $_FILES['picture123']['tmp_name'];    
                         $fileType = pathinfo($filename,PATHINFO_EXTENSION);
