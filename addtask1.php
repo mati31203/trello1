@@ -7,15 +7,7 @@ if (!empty($_POST['add'])):
                 $taskname = $_POST['name'];
                 $taskdesc = $_POST['description'];
                 $button = $_POST['add'];
-
-                $positions = getposition();
-                foreach($positions as $maxposition):
-                    if ($maxposition['MAX(position)'] === NULL):
-                        $position = 1;
-                    else:
-                        $position = $maxposition['MAX(position)'] + 1;
-                    endif; 
-                endforeach;
+                $position = setposition();
 
                 $filename = $_FILES["picture"]["name"];
                 $tempname = $_FILES["picture"]["tmp_name"];    
