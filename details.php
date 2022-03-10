@@ -48,7 +48,7 @@ $details = getdetails();
             endforeach; ?>
         </div>
 
-        <div class="allbuttons"><a href="addtask1.php">Delete</a></div>
+        <div class="allbuttons"><a href="deletetask.php?id=<?php echo $task['id'];?>&position=<?php echo $task['position'];?>">Delete</a></div>
         <div class="allbuttons"><a href="edittask.php">Edit</a></div>
         <div class="allbuttons"><a href="index.php">Back</a></div>
     </div>
