@@ -18,7 +18,7 @@ function getAll(): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)) {
-        $stmt = $db_conn->prepare('SELECT * FROM tasks');
+        $stmt = $db_conn->prepare('SELECT * FROM `tasks` ORDER BY `tasks`.`position` ASC' );
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

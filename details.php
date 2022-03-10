@@ -43,7 +43,7 @@ $details = getdetails();
 
         <div class="all input">
             Description:<br>
-            <?php foreach($details as $task): 
+            <?php foreach($details as $task):
                 echo $task['description'];
             endforeach; ?>
         </div>
