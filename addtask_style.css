@@ -12,6 +12,7 @@
 a
 {
     text-decoration: none;
+    color: black;
 }
 
 .form
@@ -55,11 +56,13 @@ input[type=submit]
 input[type=submit]:hover 
 {
     background-color: lightsteelblue;
+    cursor: pointer;
 }
 
 .allbuttons
 {
     background-color: white;
+    color: black;
     border: 5px ridge lightgrey;
     border-radius: 7px;
     font: 15px 'Trebuchet MS', sans-serif;

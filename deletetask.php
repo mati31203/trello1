@@ -1,10 +1,30 @@
 <?php
 include "utils\db.php";
 
+function getpicture() : bool|array
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)) {
+        $id = $_GET['id'];
+        $stmt = $db_conn->prepare("SELECT picture FROM `tasks` WHERE id = :id");
+        $stmt->bindParam('id', $id);
+        $stmt->execute();
+    }
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+getpicture();
+
 function deleteTask(): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
+        $pictures = getpicture();
+
+        foreach($pictures as $picture):
+            unlink("images/".$picture['picture']);
+        endforeach;
+
         $id = $_GET['id'];
         $stmt = $db_conn->prepare("DELETE FROM tasks WHERE id = :id");
         $stmt->bindParam('id', $id);
@@ -28,6 +48,7 @@ function changePositions(): bool|array
 }
 
 changePositions();
+header("Location: index.php");
 
 ?>
 <!DOCTYPE html>

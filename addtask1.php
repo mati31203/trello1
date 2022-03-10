@@ -12,7 +12,7 @@ if (!empty($_POST['add'])):
                 $filename = $_FILES["picture"]["name"];
                 $tempname = $_FILES["picture"]["tmp_name"];    
                 $fileType = pathinfo($filename,PATHINFO_EXTENSION);
-                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES["picture"]["name"]).".".$fileType;
+                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$filename).".".$fileType;
                 $folder = "images/".$filename;
                 $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
 

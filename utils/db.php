@@ -84,3 +84,22 @@ function edittask($name, $description, $filename, $id)
 
     return [];
 }
+
+function reorderTasks($tasks)
+{
+    $position = 1;
+    foreach ($tasks as $id) 
+    {
+        $db_conn = startConnection();
+        if(!is_null($db_conn))
+        {
+            $stmt = $db_conn->prepare("UPDATE tasks SET position = :position WHERE tasks.id = :id");
+            $stmt->bindParam('position', $position);
+            $stmt->bindParam('id', $id);
+    
+            $stmt->execute();
+            $position++;
+        }
+
+    }
+}

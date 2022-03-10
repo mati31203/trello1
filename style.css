@@ -12,6 +12,7 @@
 a
 {
     text-decoration: none;
+    color: black;
 }
 
 .list
@@ -60,6 +61,8 @@ a
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
+
 }
 
 #addbutton:hover
@@ -71,7 +74,7 @@ a
     background-color: white;
     height: 25px;
     width: 50px;
-    font-size: 15px;
+    font: 15px 'Trebuchet MS', sans-serif;
     float: right;
     vertical-align: bottom;
     display: flex;
@@ -82,4 +85,26 @@ a
 #detailsbutton:hover
 {
     background-color: lightsteelblue;
+}
+
+input[type=submit] 
+{
+    background-color: white;
+    height: 43px;
+    border: 5px ridge lightgrey;
+    border-radius: 7px;
+    font: 18px 'Trebuchet MS', sans-serif;
+    margin: 4px;
+    padding: 4px;
+    float: right;
+    vertical-align: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=submit]:hover
+{
+    background-color: lightsteelblue;
+    cursor: pointer;
 }
