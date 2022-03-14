@@ -1,6 +1,8 @@
 <?php
-    include_once "utils\db.php";
-    $tasks = getAll();
+
+include_once "utils\db.php";
+$tasks = getAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -16,21 +18,21 @@
 </head>
 
 <body>
-
     <div class="all list" >
-        <div class="all header">Tasks:</div>
+        <div class="all header">
+            Tasks:
+        </div>
         <div id="sortable">
-            
                 <?php foreach($tasks as $task):?>
                     <div class="all cell" data-id="<?=$task['id'];?>">
                         <div class="all task"><?=$task['name'];?></div>
-                        <div class="all" id="detailsbutton"><a href="details.php?id=<?php echo $task['id']; ?>">Details</a></div>
+                        <div class="all" id="detailsbutton"><a href="details.php?id=<?=$task['id']; ?>">Details</a></div>
                     </div>
                 <?php endforeach ?>
         </div>
-
-        <div class="all" id="addbutton"><a href="addtask1.php">Add task</a></div>
-
+        <div class="all" id="addbutton">
+            <a href="addtask1.php">Add task</a>
+        </div>
         <div>
             <form action="reorder.php" method="POST">
                 <input type="hidden" name="tasks_order">
@@ -50,16 +52,13 @@
                     $('.cell').each(function ()
                     {
                         tasksIds.push($(this).data('id'));
-                
                     });
-
                     $('[name=tasks_order]').val(tasksIds.join(';'));
                 }
             });
         });
     </script>
-
-
-
 </body>
 </html>
+
+

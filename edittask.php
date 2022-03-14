@@ -1,61 +1,47 @@
 <?php
+
 include_once "utils\db.php";
-
-function getdetails(): bool|array
-{
-    $db_conn = startConnection();
-    if (!is_null($db_conn)):
-        $id = $_GET['id'];
-        $stmt = $db_conn->prepare("SELECT * FROM tasks WHERE id='".$id."'");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    endif;
-    return [];
-}
-
-$details = getdetails();
+$details = getdetails($_GET['id']);
 
 if (!empty($_POST['edit'])):
     if (!empty($_POST['name'])):
-        switch ($_POST['edit']):
-            case (!empty($_POST['edit'])):
-                $taskname = $_POST['name'];
-                $taskdesc = $_POST['description'];
-                $button = $_POST['edit'];
-                foreach($details as $task): $id=$task['id']; endforeach;
-                foreach($_FILES as $array): $size = $array['size']; endforeach;
+        if (!empty($_POST['edit'])):
+            $taskname = $_POST['name'];
+            $taskdesc = $_POST['description'];
+            $button = $_POST['edit'];
+            $id=$details['id'];
 
-                if ($size == 0):
-                        foreach($details as $task): $filename = $task['picture']; endforeach;
-                        edittask ($taskname, $taskdesc, $filename, $id);
-                        header("Location: details.php"."?id=".$task['id']);
+            if(!empty($_FILES["picture"]["name"])):
+                $filename = $details['picture'];
+                unlink("images/".$filename);
+                $filename = $_FILES['picture']['name'];
+                $tempname = $_FILES['picture']['tmp_name'];    
+                $fileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
+                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES['picture']['name']).".".$fileType;
+                $folder = "images/".$filename;
+                $allowTypes = array('jpg', 'png', 'jpeg');
+
+                if (in_array($fileType, $allowTypes)):
+                    move_uploaded_file($tempname, $folder);
+                    edittask ($taskname, $taskdesc, $filename, $id);
                     
-                elseif ($size > 0):
-                        foreach($details as $task): $filename = $task['picture']; endforeach;
-                        unlink("images/".$filename);
-                        $filename = $_FILES['picture123']['name'];
-                        $tempname = $_FILES['picture123']['tmp_name'];    
-                        $fileType = pathinfo($filename,PATHINFO_EXTENSION);
-                        $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES['picture123']['name']).".".$fileType;
-                        $folder = "images/".$filename;
-                        $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
+                    header("Location: details.php"."?id=".$details['id']);
+                else:
+                    echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
+                endif;
+                
+            else:                    
+                $filename = $details['picture'];
+                edittask ($taskname, $taskdesc, $filename, $id);
+                header("Location: details.php"."?id=".$details['id']);
 
-                        if (in_array($fileType, $allowTypes)):
-                            move_uploaded_file($tempname, $folder);
-                            edittask ($taskname, $taskdesc, $filename, $id);
-                            
-                            foreach($details as $task): $task['id']; endforeach;
-                            header("Location: details.php"."?id=".$task['id']);
-                        else:
-                            echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
-                        endif;
-                endif; 
-            break;
-        endswitch;
+            endif; 
+        endif;
     else:
         echo "Add name of a task <br><br>";
     endif;
 endif; 
+
 ?>
 
 <!DOCTYPE html>
@@ -71,21 +57,23 @@ endif;
     
 <div class="all form">
         <form action="" method="POST" enctype="multipart/form-data">
-            <div class="all input">Name: <br><textarea name="name"><?php foreach($details as $task): echo $task['name']; endforeach; ?></textarea>
+            <div class="all input">Name: <br><textarea name="name"><?=$details['name'];?></textarea>
             </div>
             
-            <div class="all input">Picture: <br><input type="file" name="picture123"><br><br>
-                <?php foreach($details as $task):
-                    $path = "images/".$task['picture'];
+            <div class="all input">Picture: <br><input type="file" name="picture"><br><br>
+                <?php
+                    $path = "images/".$details['picture'];
                     echo "<img src='".$path."'>";
-                endforeach; ?>
+                ?>
             </div>
             
-            <div class="all input">Description: <br><textarea name="description"><?php foreach($details as $task): echo $task['description']; endforeach; ?></textarea>
+            <div class="all input">Description: <br><textarea name="description"><?=$details['description'];?></textarea>
             </div>
             <input type="submit" name="edit" value="Edit task">
-            <div class="allbuttons"><a href="details.php?id=<?php echo $task['id']; ?>">Back</a></div>
+            <div class="allbuttons"><a href="details.php?id=<?=$details['id'];?>">Back</a></div>
         </form>
     </div>
 </body>
 </html>
+
+

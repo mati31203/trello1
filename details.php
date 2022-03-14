@@ -1,18 +1,8 @@
 <?php
+
 include_once "utils\db.php";
-
-function getdetails(): bool|array
-{
-    $db_conn = startConnection();
-    if (!is_null($db_conn)):
-        $stmt = $db_conn->prepare("SELECT * FROM tasks WHERE id='".$id."'");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    endif;
-    return [];
-}
-
 $details = getdetails($_GET['id']);
+
 ?>
 
 <!DOCTYPE html>
@@ -27,28 +17,24 @@ $details = getdetails($_GET['id']);
 <body>
     <div class="all form">
         <div id="pic">
-            <?php foreach($details as $task):
-                $path = "images/".$task['picture'];
+            <?php 
+                $path = "images/".$details['picture'];
                 echo "<img src='".$path."'>";
-            endforeach; ?>
+            ?>
         </div>
 
         <div class="all input">
             Name:<br>
-            <?php foreach($details as $task): 
-                echo $task['name'];
-            endforeach;?>
+            <?php echo $details['name']; ?>
         </div>
 
         <div class="all input">
             Description:<br>
-            <?php foreach($details as $task):
-                echo $task['description'];
-            endforeach; ?>
+            <?php echo $details['description']; ?>
         </div>
 
-        <div class="allbuttons"><a href="deletetask.php?id=<?php echo $task['id'];?>&position=<?php echo $task['position'];?>">Delete</a></div>
-        <div class="allbuttons"><a href="edittask.php?id=<?php echo $task['id'];?>">Edit</a></div>
+        <div class="allbuttons"><a href="deletetask.php?id=<?=$details['id'];?>&position=<?=$details['position'];?>">Delete</a></div>
+        <div class="allbuttons"><a href="edittask.php?id=<?=$details['id'];?>">Edit</a></div>
         <div class="allbuttons"><a href="index.php">Back</a></div>
     </div>
 
