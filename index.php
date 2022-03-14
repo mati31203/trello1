@@ -1,7 +1,6 @@
 <?php
     include_once "utils\db.php";
     $tasks = getAll();
-    reorderTasks([]);
 ?>
 
 <!DOCTYPE html>

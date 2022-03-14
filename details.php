@@ -5,7 +5,6 @@ function getdetails(): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
-        $id = $_GET['id'];
         $stmt = $db_conn->prepare("SELECT * FROM tasks WHERE id='".$id."'");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -13,7 +12,7 @@ function getdetails(): bool|array
     return [];
 }
 
-$details = getdetails();
+$details = getdetails($_GET['id']);
 ?>
 
 <!DOCTYPE html>

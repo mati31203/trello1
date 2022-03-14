@@ -2,34 +2,30 @@
 include_once "utils\db.php";
 if (!empty($_POST['add'])):
     if (!empty($_POST['name'])):
-        switch ($_POST['add']):
-            case (!empty($_POST['add'])):
-                $taskname = $_POST['name'];
-                $taskdesc = $_POST['description'];
-                $button = $_POST['add'];
-                $position = setposition();
+        $taskname = $_POST['name'];
+        $taskdesc = $_POST['description'];
+        $position = setposition();
 
-                $filename = $_FILES["picture"]["name"];
-                $tempname = $_FILES["picture"]["tmp_name"];    
-                $fileType = pathinfo($filename,PATHINFO_EXTENSION);
-                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$filename).".".$fileType;
-                $folder = "images/".$filename;
-                $allowTypes = array('jpg', 'JPG','png', 'PNG', 'jpeg', 'JPEG', NULL);
+        $filename = $_FILES["picture"]["name"];
+        $tempname = $_FILES["picture"]["tmp_name"];
+        $fileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
+        $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$filename).".".$fileType;
+        $folder = "images/".$filename;
+        $allowTypes = array('jpg', 'png', 'jpeg');
 
-                if (in_array($fileType, $allowTypes)):
-                    move_uploaded_file($tempname, $folder);
+        if (in_array($fileType, $allowTypes)):
+            move_uploaded_file($tempname, $folder);
 
-                    create($taskname, $taskdesc, $filename, $position);
-                    header("Location: index.php");
-                else:
-                    echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
-                endif;
-                break;
-        endswitch;
+            create($taskname, $taskdesc, $filename, $position);
+            header("Location: index.php");
+        else:
+            echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
+        endif;
     else:
         echo "Add name of a task <br><br>";
     endif;
-endif; 
+endif;
+
 ?>
 
 <!DOCTYPE html>
