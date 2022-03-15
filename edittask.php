@@ -5,38 +5,20 @@ $details = getdetails($_GET['id']);
 
 if (!empty($_POST['edit'])):
     if (!empty($_POST['name'])):
-        if (!empty($_POST['edit'])):
-            $taskname = $_POST['name'];
-            $taskdesc = $_POST['description'];
-            $button = $_POST['edit'];
-            $id=$details['id'];
+        $taskname = $_POST['name'];
+        $taskdesc = $_POST['description'];
+        $id=$details['id'];
+        $filename = EditPicture($_FILES, $id);
 
-            if(!empty($_FILES["picture"]["name"])):
-                $filename = $details['picture'];
-                unlink("images/".$filename);
-                $filename = $_FILES['picture']['name'];
-                $tempname = $_FILES['picture']['tmp_name'];    
-                $fileType = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
-                $filename = sha1(rand(1000,999999999999999)."-".date('d-m-y h:i:s')."-".$_FILES['picture']['name']).".".$fileType;
-                $folder = "images/".$filename;
-                $allowTypes = array('jpg', 'png', 'jpeg');
+        if ($filename == "error"):
+            echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
 
-                if (in_array($fileType, $allowTypes)):
-                    move_uploaded_file($tempname, $folder);
-                    edittask ($taskname, $taskdesc, $filename, $id);
-                    
-                    header("Location: details.php"."?id=".$details['id']);
-                else:
-                    echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
-                endif;
-                
-            else:                    
-                $filename = $details['picture'];
-                edittask ($taskname, $taskdesc, $filename, $id);
-                header("Location: details.php"."?id=".$details['id']);
-
-            endif; 
+        else:
+            edittask ($taskname, $taskdesc, $filename, $id);
+            $details = getdetails($_GET['id']);
+            //header("Location: details.php?id=".$id);
         endif;
+
     else:
         echo "Add name of a task <br><br>";
     endif;

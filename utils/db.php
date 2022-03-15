@@ -34,7 +34,11 @@ function create($name, $description, $picture, $position)
         $stmt->bindParam('description', $description);
         $stmt->bindParam('position', $position);
         $stmt->execute();
+
+        return true;
     endif;
+
+    return false;
 }
 
 function reorderTasks($order)
@@ -85,17 +89,6 @@ function getdetails($id): bool|array
     endif;
 }
 
-function getpicture($id) : bool|array
-{
-    $db_conn = startConnection();
-    if (!is_null($db_conn)):
-        $stmt = $db_conn->prepare("SELECT picture FROM `tasks` WHERE id = :id");
-        $stmt->bindParam('id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    endif;
-}
-
 function changePositions($position)
 {
     $db_conn = startConnection();
@@ -110,13 +103,25 @@ function deleteTask($id): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
-        $pictures = getpicture($id);
-        unlink("images/".$pictures['picture']);
+        deleteTaskPicture($id);
 
         $stmt = $db_conn->prepare("DELETE FROM tasks WHERE id = :id");
         $stmt->bindParam('id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return true;
+    endif;
+}
+
+function deleteTaskPicture($taskId)
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)):
+        $stmt = $db_conn->prepare("SELECT picture FROM `tasks` WHERE id = :id");
+        $stmt->bindParam('id', $taskId);
+        $stmt->execute();
+        $picture = $stmt->fetch(PDO::FETCH_ASSOC);
+        unlink("images/".$picture['picture']);
     endif;
 }
 
@@ -134,4 +139,53 @@ function edittask($name, $description, $filename, $id)
     endif;
 }
 
+function addNewPicture($filearray)
+{
+    if(!empty($_FILES["picture"]["name"])):
+        $filename = $_FILES['picture']['name'];
+        $tempname = $_FILES['picture']['tmp_name'];
+        $fileType = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $filename = sha1(rand(1000, 999999999999999) . "-" . date('d-m-y h:i:s') . "-" . $_FILES['picture']['name']) . "." . $fileType;
+        $folder = "images/" . $filename;
+        $allowTypes = array('jpg', 'png', 'jpeg');
 
+        if (in_array($fileType, $allowTypes)):
+            move_uploaded_file($tempname, $folder);
+            return $filename;
+
+        else:
+            $error = "error";
+            return $error;
+        endif;
+    else:
+        $filename = null;
+        return $filename;
+    endif;
+}
+
+function EditPicture($filearray, $id)
+{
+    if(!empty($_FILES["picture"]["name"])):
+        $filename = $_FILES['picture']['name'];
+        $tempname = $_FILES['picture']['tmp_name'];
+        $fileType = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $filename = sha1(rand(1000, 999999999999999) . "-" . date('d-m-y h:i:s') . "-" . $_FILES['picture']['name']) . "." . $fileType;
+        $folder = "images/" . $filename;
+        $allowTypes = array('jpg', 'png', 'jpeg');
+
+        if (in_array($fileType, $allowTypes)):
+            $details = getdetails($id);
+            unlink("images/".$details['picture']);
+            move_uploaded_file($tempname, $folder);
+            return $filename;
+
+        else:
+            $error = "error";
+            return $error;
+        endif;
+    else:
+        $details = getdetails($id);
+        $filename = $details['picture'];
+        return $filename;
+    endif;
+}
