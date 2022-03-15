@@ -1,7 +1,7 @@
 <?php
 
 include_once "utils\db.php";
-$tasks = getAll();
+$lists = getList();
 
 ?>
 
@@ -18,42 +18,53 @@ $tasks = getAll();
 </head>
 
 <body>
-    <div class="all list" >
-        <div class="all header">
-            Tasks:
-        </div>
-        <div id="sortable">
+    <?php foreach($lists as $list):
+        $id_l = $list['id_l'];
+        $tasks = getAll($id_l); ?>
+        <div class="all list" >
+            <div class="all header">
+                <?=$list['name'];?>
+            </div>
+            <div class="sortable">
                 <?php foreach($tasks as $task):?>
                     <div class="all cell" data-id="<?=$task['id'];?>">
                         <div class="all task"><?=$task['name'];?></div>
                         <div class="all" id="detailsbutton"><a href="details.php?id=<?=$task['id']; ?>">Details</a></div>
                     </div>
                 <?php endforeach ?>
+            </div>
+            <div class="all" id="addbutton">
+                <a href="addtask1.php?id_l=<?=$id_l; ?>">Add task</a>
+            </div>
+            <div>
+                <form action="reorder.php" method="POST">
+                    <input type="hidden" name="tasks_order">
+                    <input type="submit" name="reorder" value="Save order">
+                </form>
+            </div>
+            <div class="all" id="addbutton"><a href="deletelist.php?id_l=<?=$id_l; ?>">Delete list</a></div>
         </div>
-        <div class="all" id="addbutton">
-            <a href="addtask1.php">Add task</a>
-        </div>
-        <div>
-            <form action="reorder.php" method="POST">
-                <input type="hidden" name="tasks_order">
-                <input type="submit" name="reorder" value="Save order">
-            </form>
-        </div>
-    </div>
+    <?php endforeach ?>
+
+    <div class="all" id="detailsbutton"><a href="addlist.php">Add New List</a></div>
+
+
+
 
     <script>
         $(document).ready(function ()
         {
-            $("#sortable").sortable(
+            $(".sortable").sortable(
             {
                 stop: function ()
                 {
                     var tasksIds = [];
-                    $('.cell').each(function ()
+                    var cells = $(this).find('.cell');
+                    cells.each(function ()
                     {
                         tasksIds.push($(this).data('id'));
                     });
-                    $('[name=tasks_order]').val(tasksIds.join(';'));
+                    $(this).closest('.list').find('[name=tasks_order]').val(tasksIds.join(';'));
                 }
             });
         });

@@ -4,16 +4,17 @@ include_once "utils\db.php";
 
 if (!empty($_POST['add'])):
     if (!empty($_POST['name'])):
+        $id_l = $_GET['id_l'];
         $taskname = $_POST['name'];
         $taskdesc = $_POST['description'];
-        $position = setposition();
+        $position = setposition($id_l);
         $filename = addNewPicture($_FILES);
 
         if ($filename == "error"):
             echo "Add a file with any of these extensions: 'jpg', 'png', 'jpeg'. <br><br>";
 
         else:
-            create($taskname, $taskdesc, $filename, $position);
+            create($taskname, $taskdesc, $filename, $position, $id_l);
             header("Location: index.php");
         endif;
     else:

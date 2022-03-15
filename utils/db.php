@@ -14,31 +14,29 @@ function startConnection(): ?PDO
     return $db_conn;
 }
 
-function getAll(): bool|array
+function getAll($id_l): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
-        $stmt = $db_conn->prepare('SELECT * FROM `tasks` ORDER BY `tasks`.`position` ASC' );
+        $stmt = $db_conn->prepare('SELECT * FROM `tasks` WHERE id_l = :id_l ORDER BY `tasks`.`position` ASC' );
+        $stmt->bindParam('id_l', $id_l);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     endif;
 }
 
-function create($name, $description, $picture, $position)
+function create($name, $description, $picture, $position, $id_l)
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
-        $stmt = $db_conn->prepare("INSERT INTO tasks (name, picture, description, position) VALUES(:name, :picture, :description, :position)");
+        $stmt = $db_conn->prepare("INSERT INTO tasks (name, picture, description, position, id_l) VALUES(:name, :picture, :description, :position, :id_l)");
         $stmt->bindParam('name', $name);
         $stmt->bindParam('picture', $picture);
         $stmt->bindParam('description', $description);
         $stmt->bindParam('position', $position);
+        $stmt->bindParam('id_l', $id_l);
         $stmt->execute();
-
-        return true;
     endif;
-
-    return false;
 }
 
 function reorderTasks($order)
@@ -56,19 +54,20 @@ function reorderTasks($order)
     endforeach;
 }
 
-function getposition(): bool|array
+function getposition($id_l): bool|array
 {
     $db_conn = startConnection();
     if (!is_null($db_conn)):
-        $stmt = $db_conn->prepare("SELECT MAX(position) FROM `tasks`");
+        $stmt = $db_conn->prepare("SELECT MAX(position) FROM `tasks` WHERE id_l = :id_l");
+        $stmt->bindParam('id_l', $id_l);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     endif;
 }
 
-function setposition()
+function setposition($id_l)
 {
-    $positions = getposition();
+    $positions = getposition($id_l);
         if ($positions['MAX(position)'] === NULL):
             $position = 1;
             return $position;
@@ -187,5 +186,35 @@ function EditPicture($filearray, $id)
         $details = getdetails($id);
         $filename = $details['picture'];
         return $filename;
+    endif;
+}
+
+function getList(): bool|array
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)):
+        $stmt = $db_conn->prepare('SELECT * FROM `lists`');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    endif;
+}
+
+function addList($name)
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)):
+        $stmt = $db_conn->prepare("INSERT INTO lists (name) VALUES(:name)");
+        $stmt->bindParam('name', $name);
+        $stmt->execute();
+    endif;
+}
+
+function deleteList($id_l)
+{
+    $db_conn = startConnection();
+    if (!is_null($db_conn)):
+        $stmt = $db_conn->prepare("DELETE FROM lists WHERE id_l = :id_l; DELETE FROM tasks WHERE id_l = :id_l");
+        $stmt->bindParam('id_l', $id_l);
+        $stmt->execute();
     endif;
 }
