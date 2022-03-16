@@ -39,15 +39,16 @@ function create($name, $description, $picture, $position, $id_l)
     endif;
 }
 
-function reorderTasks($order)
+function reorderTasks($order, $id_l)
 {
     $position = 1;
     foreach ($order as $id):
         $db_conn = startConnection();
         if(!is_null($db_conn)):
-            $stmt = $db_conn->prepare("UPDATE tasks SET position = :position WHERE tasks.id = :id");
+            $stmt = $db_conn->prepare("UPDATE tasks SET position = :position, id_l = :id_l WHERE tasks.id = :id");
             $stmt->bindParam('position', $position);
             $stmt->bindParam('id', $id);
+            $stmt->bindParam('id_l', $id_l);
             $stmt->execute();
             $position++;
         endif;
@@ -217,4 +218,4 @@ function deleteList($id_l)
         $stmt->bindParam('id_l', $id_l);
         $stmt->execute();
     endif;
-}
+} 

@@ -1,18 +1,36 @@
 .all
 {
+    background: lightskyblue;
     border: 5px ridge lightgrey;
     border-radius: 7px;
     font: 18px 'Trebuchet MS', sans-serif;
+    color:black;
     word-wrap: break-word;
     margin: 4px;
     padding: 4px;
-    float: left;
 }
 
 a
 {
     text-decoration: none;
     color: black;
+}
+
+.ui-state-default
+{
+    border: none;
+}
+
+.sortable
+{
+    min-height: 30px;
+}
+
+.ui-state-highlight 
+{ 
+    background: turquoise;
+    height: 30px; 
+    line-height: 20px; 
 }
 
 .list
@@ -33,6 +51,7 @@ a
 
 .cell
 {
+    border-radius: 0px;
     border-style: none;
     margin: 0px;
     padding: 0px;
@@ -41,7 +60,7 @@ a
 .task
 {
     background-color: white;
-    width: 380px;
+    width: 395px;
     min-height: 25px;
     display: inline-block;
 }
@@ -73,7 +92,7 @@ a
     background-color: white;
     height: 25px;
     width: 50px;
-    font: 15px 'Trebuchet MS', sans-serif;
+    font: 18px 'Trebuchet MS', sans-serif;
     float: right;
     vertical-align: bottom;
     display: flex;
