@@ -38,16 +38,16 @@ $lists = getList();
             <div class="all" id="addbutton">
                 <a href="addtask1.php?id_l=<?=$id_l; ?>">Add task</a>
             </div>
-            <div>
-                <form action="reorder.php" method="POST">
-                    <input type="hidden" name="tasks_order">
-                    <input type="hidden" name="listid" value=<?=$list['id_l'];?>>
-                    <input type="submit" name="reorder" value="Save order">
-                </form>
-            </div>
             <div class="all" id="addbutton"><a href="deletelist.php?id_l=<?=$id_l; ?>">Delete list</a></div>
         </div>
     <?php endforeach ?>
+
+    <div>
+        <form action="reorder.php" method="POST">
+            <input type="text" name="tasks_order">
+            <input type="submit" name="reorder" value="Save order">
+        </form>
+    </div>
 
     <div class="all" id="detailsbutton"><a href="addlist.php">Add New List</a></div>
 
@@ -60,17 +60,24 @@ $lists = getList();
                 placeholder: "ui-state-highlight",
                 stop: function ()
                 {
-                    var lists = $('.sortable');
+                    var lists = $('.list'),
+                        listsData = [],
+                        tasksOrderInput = $('[name=tasks_order]');
 
                     lists.each(function() {
-                        var tasksIds = [];
-                        var cells = $(this).find('.cell');
-                        cells.each(function ()
-                        {
-                            tasksIds.push($(this).data('id'));
+                        var idList = $(this).data('id'),
+                            tasksInList = $(this).find('.cell'),
+                            tasksIds = [];
+
+                        tasksInList.each(function() {
+                            tasksIds.push($(this).data('id'))
                         });
-                        $(this).closest('.list').find('[name=tasks_order]').val(tasksIds.join(';'));     
+
+                        if(tasksIds.length > 0)
+                            listsData.push(idList + ':' + tasksIds.join(';'));
                     });
+
+                    tasksOrderInput.val(listsData.join('|'));
                 }
             })
         });
