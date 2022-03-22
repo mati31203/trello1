@@ -15,6 +15,7 @@ $details = getdetails($_GET['id']);
 </head>
 
 <body>
+<!--
     <div class="all form">
         <div id="pic">
             <?php 
@@ -37,6 +38,7 @@ $details = getdetails($_GET['id']);
         <div class="allbuttons"><a href="edittask.php?id=<?=$details['id'];?>">Edit</a></div>
         <div class="allbuttons"><a href="index.php">Back</a></div>
     </div>
+-->
 
 </body>
 </html>

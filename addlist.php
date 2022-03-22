@@ -24,6 +24,7 @@ endif;
 </head>
 
 <body>
+<!--
     <div class="all form">
         <form action="" method="POST">
             <div class="all input">Name: <br><input type="text" name="listname"></div>
@@ -31,5 +32,6 @@ endif;
             <div class="allbuttons"><a href="index.php">Back</a></div>
         </form>
     </div>
+-->
 </body>
 </html>

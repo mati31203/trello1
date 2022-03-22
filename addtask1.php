@@ -30,10 +30,11 @@ endif;
 <head>
     <meta charset="UTF-8">
     <title>Trello_trial - Add Task</title>
-    <!--<link rel="stylesheet" href="addtask_style.css">-->
+    <link rel="stylesheet" href="addtask_style.css">
 </head>
 
 <body>
+<!--
     <div class="all form">
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="all input">Name: <br><textarea name="name"></textarea></div>
@@ -43,5 +44,6 @@ endif;
             <div class="allbuttons"><a href="index.php">Back</a></div>
         </form>
     </div>
+    -->
 </body>
 </html>
