@@ -44,7 +44,7 @@ $lists = getList();
 
     <div>
         <form action="reorder.php" method="POST">
-            <input type="text" name="tasks_order">
+            <input type="hidden" name="tasks_order">
             <input type="submit" name="reorder" value="Save order">
         </form>
     </div>
