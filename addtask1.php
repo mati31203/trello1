@@ -30,7 +30,7 @@ endif;
 <head>
     <meta charset="UTF-8">
     <title>Trello_trial - Add Task</title>
-    <link rel="stylesheet" href="addtask_style.css">
+    <!--<link rel="stylesheet" href="addtask_style.css">-->
 </head>
 
 <body>

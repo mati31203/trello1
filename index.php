@@ -18,6 +18,10 @@ $lists = getList();
 </head>
 
 <body>
+
+<div class="container">
+
+<!--
     <?php foreach($lists as $list):
         $id_l = $list['id_l'];
         $tasks = getAll($id_l); ?>
@@ -51,6 +55,10 @@ $lists = getList();
 
     <div class="all" id="detailsbutton"><a href="addlist.php">Add New List</a></div>
 
+
+-->
+csadsadasddas
+</div>
     <script>
         $(document).ready(function ()
         {
@@ -82,6 +90,8 @@ $lists = getList();
             })
         });
     </script>
+
+
 </body>
 </html>
 
