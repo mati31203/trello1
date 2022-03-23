@@ -8,6 +8,8 @@ body
   letter-spacing: 0em;
   text-align: left;
   color: black;
+  box-sizing: border-box; 
+
 }
 
 .ui-state-default
@@ -41,6 +43,7 @@ input[type=submit]
   letter-spacing: 0em;
   text-align: left;
   color: black;
+  cursor: pointer;
 }
 
 .container
@@ -109,6 +112,19 @@ footer
   box-sizing: border-box; 
 }
 
+.deletelist
+{
+  text-align: right;
+  float: right;
+  font-family: 'Red Hat Display';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #DA5454;
+
+}
+
 .task
 {
   width: 350px;
@@ -142,7 +158,6 @@ footer
   padding-left: 20px;
 }
 
-
 .reordertasksbutton
 {
   top: 20px;
@@ -159,6 +174,9 @@ footer
   border-radius: 12px;
   cursor: pointer;
 }
-img {
+
+img 
+{
   margin-left: 5px;
 }
+

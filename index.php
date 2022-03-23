@@ -30,6 +30,8 @@ $lists = getList();
 
                 <div class="listname" data-id="<?=$list['id_l'];?>">
                     <?=$list['name'];?>
+                    <a class="deletelist" href="deletelist.php?id_l=<?=$id_l; ?>">Usuń listę</a>
+
                 </div>
 
                 <div class="sortable connectedSortable">
@@ -44,9 +46,8 @@ $lists = getList();
                     <?php endforeach ?>
                 </div>
 
-                <a href="addtask1.php?id_l=<?=$id_l; ?>">Add task</a>
+                <a class="addtask" href="addtask1.php?id_l=<?=$id_l; ?>">Dodaj zadanie</a>
                 
-                <a href="deletelist.php?id_l=<?=$id_l; ?>">Delete list</a>
 
             </div>
 
