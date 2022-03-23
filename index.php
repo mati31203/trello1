@@ -45,6 +45,8 @@ $lists = getList();
                 </div>
 
                 <a href="addtask1.php?id_l=<?=$id_l; ?>">Add task</a>
+                
+                <a href="deletelist.php?id_l=<?=$id_l; ?>">Delete list</a>
 
             </div>
 
@@ -63,26 +65,7 @@ $lists = getList();
         <a class="addnewlistbutton" href="addlist.php">Dodaj listę <img src="addIcon.png"></a>
     </footer>
 
-
-
-
-
-
 </div>
-
-
-
-
-<!--
-
-            <div class="all" id="addbutton">
-                <a href="addtask1.php?id_l=<?=$id_l; ?>">Add task</a>
-            </div>
-            <div class="all" id="addbutton"><a href="deletelist.php?id_l=<?=$id_l; ?>">Delete list</a></div>
-        </div>
--->
-
-
 
 
 
